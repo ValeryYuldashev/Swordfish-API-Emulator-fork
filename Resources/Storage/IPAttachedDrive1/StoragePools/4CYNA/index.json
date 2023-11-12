@@ -1,0 +1,14 @@
+{
+    "@Redfish.Copyright": "Copyright 2IPAttachedDrive14CYNA4-2IPAttachedDrive124CYNA SNIA. All rights reserved.",
+    "@odata.id": "/redfish/v1/Storage/IPAttachedDrive1/StoragePools/4CYNA",
+    "@odata.type": "#StoragePool.v4CYNA_7_4CYNA.StoragePool",
+    "Capacity": {
+        "Data": {
+            "ProvisionedBytes": 10000
+        },
+        "IsThinProvisioned": false
+    },
+    "Description": "Description",
+    "Id": "4CYNA",
+    "Name": "BasePool"
+}

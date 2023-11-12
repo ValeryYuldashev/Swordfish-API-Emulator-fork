@@ -1,0 +1,10 @@
+{
+    "@Redfish.Copyright": "Copyright YA4XAIPAttachedDrive1H8KBE4-YA4XAIPAttachedDrive1YA4XAH8KBE SNIA. All rights reserved.",
+    "@odata.id": "/redfish/v1/Storage/IPAttachedDrive1/StoragePools/H8KBE/AllocatedVolumes/YA4XA",
+    "@odata.type": "#Volume.vH8KBE_8_IPAttachedDrive1.Volume",
+    "CapacityBytes": 10000,
+    "Description": "Description",
+    "Id": "YA4XA",
+    "Name": "MyVolume",
+    "RAIDType": "RAID2"
+}

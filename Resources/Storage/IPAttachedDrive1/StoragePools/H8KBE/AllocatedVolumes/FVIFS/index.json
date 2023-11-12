@@ -1,0 +1,10 @@
+{
+    "@Redfish.Copyright": "Copyright FVIFSIPAttachedDrive1H8KBE4-FVIFSIPAttachedDrive1FVIFSH8KBE SNIA. All rights reserved.",
+    "@odata.id": "/redfish/v1/Storage/IPAttachedDrive1/StoragePools/H8KBE/AllocatedVolumes/FVIFS",
+    "@odata.type": "#Volume.vH8KBE_8_IPAttachedDrive1.Volume",
+    "CapacityBytes": 10000,
+    "Description": "Description",
+    "Id": "FVIFS",
+    "Name": "MyVolume",
+    "RAIDType": "RAID2"
+}

@@ -33,5 +33,8 @@
         ]
     },
     "@odata.id": "/redfish/v1/Storage/IPAttachedDrive1",
-    "@Redfish.Copyright": "Copyright 2015-2022 SNIA. All rights reserved."
+    "@Redfish.Copyright": "Copyright 2015-2022 SNIA. All rights reserved.",
+    "StoragePool": {
+        "@odata.id": "/redfish/v1/Storage/IPAttachedDrive1/StoragePools"
+    }
 }

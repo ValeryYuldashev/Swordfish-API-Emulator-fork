@@ -75,7 +75,14 @@ class ManagerNetworkProtocolAPI(Resource):
 	# HTTP PATCH
 	def patch(self, ManagerId):
 		logging.info('ManagerNetworkProtocol patch called')
-		return 'PATCH is not a supported command for ManagerNetworkProtocolAPI', 405
+		msg, code = check_authentication(self.auth)
+
+		if code == 200:
+			path = create_path(self.root, 'Managers/{0}/NetworkProtocol', 'index.json').format(ManagerId)
+			patch_object(path)
+			return self.get(ManagerId)
+		else:
+			return msg, code
 
 	# HTTP DELETE
 	def delete(self, ManagerId):

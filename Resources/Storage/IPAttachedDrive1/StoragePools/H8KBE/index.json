@@ -1,0 +1,17 @@
+{
+    "@Redfish.Copyright": "Copyright 2IPAttachedDrive1H8KBE4-2IPAttachedDrive12H8KBE SNIA. All rights reserved.",
+    "@odata.id": "/redfish/v1/Storage/IPAttachedDrive1/StoragePools/H8KBE",
+    "@odata.type": "#StoragePool.vH8KBE_7_H8KBE.StoragePool",
+    "Capacity": {
+        "Data": {
+            "ProvisionedBytes": 10000
+        },
+        "IsThinProvisioned": false
+    },
+    "Description": "Description",
+    "Id": "H8KBE",
+    "Name": "BasePool",
+    "Volume": {
+        "@odata.id": "/redfish/v1/Storage/IPAttachedDrive1/StoragePools/H8KBE/AllocatedVolumes"
+    }
+}
