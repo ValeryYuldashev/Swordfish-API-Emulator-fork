@@ -10,7 +10,7 @@ The Swordfish API Emulator can emulate a Swordfish-based system that responds to
 
 The Swordfish API Emulator extends the [DMTF Redfish Interface Emulator](https://github.com/DMTF/Redfish-Interface-Emulator) by adding code to an installation of the Redfish Interface Emulator code.
 
-The Swordfish API Emulator code is maintained on GitHub by the SNIA, and the Redfish Interface Emulator code is maintained on GitHub by the DMTF.
+The Swordfish API Emulator code is maintained on GitHub by the SNIA, and the Redfish Interface Emulator code is maintained on GitHub bysdfsdfsdfs the DMTF.
 
 ----
 
