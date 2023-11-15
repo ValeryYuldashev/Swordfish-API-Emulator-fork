@@ -389,6 +389,7 @@ def check_authentication(mode):
             return get_sessionValidation_error(), 403
     return "Success..", 200
 
+
 def get_sessionValidation_error():
     error_message = {
         "error": {

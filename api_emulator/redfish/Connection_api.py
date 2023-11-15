@@ -40,6 +40,7 @@ from flask_restful import Resource
 from .constants import *
 from api_emulator.utils import check_authentication, create_path, get_json_data, create_and_patch_object, delete_object, patch_object, put_object, create_collection
 from .templates.Connection import get_Connection_instance
+from ..account_service import AccountService
 
 members = []
 member_ids = []
@@ -67,6 +68,12 @@ class ConnectionCollectionAPI(Resource):
 	def post(self, FabricId):
 		logging.info('Connection Collection post called')
 		msg, code = check_authentication(self.auth)
+		as_obg = AccountService()
+		auth = request.authorization
+		temp = as_obg.checkPriviledgeLevel(auth.username, "DevOps")
+		if temp:
+			code = 403
+			msg = "Incorrect role!"
 
 		if code == 200:
 			if request.data:
@@ -122,6 +129,12 @@ class ConnectionAPI(Resource):
 	def post(self, FabricId, ConnectionId):
 		logging.info('Connection post called')
 		msg, code = check_authentication(self.auth)
+		as_obg = AccountService()
+		auth = request.authorization
+		temp = as_obg.checkPriviledgeLevel(auth.username, "DevOps")
+		if temp:
+			code = 403
+			msg = "Incorrect role!"
 
 		if code == 200:
 			path = create_path(self.root, 'Fabrics/{0}/Connections/{1}').format(FabricId, ConnectionId)
