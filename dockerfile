@@ -3,8 +3,15 @@ FROM ubuntu:latest AS SetupFiles
 # For healthcheck
 RUN apt-get update && apt-get install bash git openssl -y
 
-RUN git clone https://github.com/xenob8/demo-Swordfish-API-Emulator
+RUN git clone https://github.com/ValeryYuldashev/Swordfish-API-Emulator-fork
 
+
+
+RUN /bin/bash -c 'openssl genrsa -out Swordfish-API-Emulator-fork/server.key 2048'
+
+RUN /bin/bash -c 'openssl req -new -key Swordfish-API-Emulator-fork/server.key -out Swordfish-API-Emulator-fork/server.csr -config Swordfish-API-Emulator-fork/certificate_config.cnf'
+
+RUN /bin/bash -c 'openssl x509 -in Swordfish-API-Emulator-fork/server.csr -out Swordfish-API-Emulator-fork/server.crt -req -signkey Swordfish-API-Emulator-fork/server.key -days 365 -extfile Swordfish-API-Emulator-fork/v3.ext'
 
 FROM python:3-slim
 
@@ -12,7 +19,7 @@ FROM python:3-slim
 RUN apt-get update && apt-get install curl -y
 
 # Copy server files
-COPY --from=SetupFiles /demo-Swordfish-API-Emulator /usr/src/app/.
+COPY --from=SetupFiles /Swordfish-API-Emulator-fork /usr/src/app/.
 
 # Install python requirements
 RUN pip install --upgrade pip && \
