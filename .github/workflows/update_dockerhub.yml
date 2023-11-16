@@ -25,4 +25,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: xenob8/demo_swordfish:latest
+        tags: xenob8/my_docker_swordfish:latest
