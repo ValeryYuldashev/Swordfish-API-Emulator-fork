@@ -44,6 +44,7 @@ from .templates.Connection import get_Connection_instance
 
 members = []
 member_ids = []
+roles = ["CloudAdmin", "StorageAdmin", "Administrator"]
 INTERNAL_ERROR = 500
 
 # Connection Collection API
@@ -58,7 +59,6 @@ class ConnectionCollectionAPI(Resource):
 		logging.info('Connection Collection get called')
 		msg, code = check_authentication(self.auth)
 		if code == 200:
-			roles = ["CloudAdmin", "StorageAdmin", "Administrator"]
 			msg, code = check_role(self.auth, roles)
 			if code == 200:
 				path = os.path.join(self.root, 'Fabrics/{0}/Connections', 'index.json').format(FabricId)
@@ -73,7 +73,6 @@ class ConnectionCollectionAPI(Resource):
 		logging.info('Connection Collection post called')
 		msg, code = check_authentication(self.auth)
 		if code == 200:
-			roles = ["CloudAdmin", "StorageAdmin", "Administrator"]
 			msg, code = check_role(self.auth, roles)
 			if code == 200:
 				if request.data:
@@ -117,7 +116,6 @@ class ConnectionAPI(Resource):
 		logging.info('Connection get called')
 		msg, code = check_authentication(self.auth)
 		if code == 200:
-			roles = ["CloudAdmin", "StorageAdmin", "Administrator"]
 			msg, code = check_role(self.auth, roles)
 			if code == 200:
 				path = create_path(self.root, 'Fabrics/{0}/Connections/{1}', 'index.json').format(FabricId, ConnectionId)
@@ -136,7 +134,6 @@ class ConnectionAPI(Resource):
 		logging.info('Connection post called')
 		msg, code = check_authentication(self.auth)
 		if code == 200:
-			roles = ["CloudAdmin", "StorageAdmin", "Administrator"]
 			msg, code = check_role(self.auth, roles)
 			if code == 200:
 				path = create_path(self.root, 'Fabrics/{0}/Connections/{1}').format(FabricId, ConnectionId)
@@ -171,7 +168,6 @@ class ConnectionAPI(Resource):
 		logging.info('Connection put called')
 		msg, code = check_authentication(self.auth)
 		if code == 200:
-			roles = ["CloudAdmin", "StorageAdmin", "Administrator"]
 			msg, code = check_role(self.auth, roles)
 			if code == 200:
 				path = create_path(self.root, 'Fabrics/{0}/Connections/{1}', 'index.json').format(FabricId, ConnectionId)
@@ -187,7 +183,6 @@ class ConnectionAPI(Resource):
 		logging.info('Connection patch called')
 		msg, code = check_authentication(self.auth)
 		if code == 200:
-			roles = ["CloudAdmin", "StorageAdmin", "Administrator"]
 			msg, code = check_role(self.auth, roles)
 			if code == 200:
 				path = create_path(self.root, 'Fabrics/{0}/Connections/{1}', 'index.json').format(FabricId, ConnectionId)
@@ -203,7 +198,6 @@ class ConnectionAPI(Resource):
 		logging.info('Connection delete called')
 		msg, code = check_authentication(self.auth)
 		if code == 200:
-			roles = ["CloudAdmin", "StorageAdmin", "Administrator"]
 			msg, code = check_role(self.auth, roles)
 			if code == 200:
 				path = create_path(self.root, 'Fabrics/{0}/Connections/{1}').format(FabricId, ConnectionId)
