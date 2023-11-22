@@ -389,6 +389,21 @@ def check_authentication(mode):
             return get_sessionValidation_error(), 403
     return "Success..", 200
 
+def check_role(mode, role):
+    if mode == 'Disable':
+        pass
+    elif mode == 'Enable':
+        as_obg = AccountService()
+        auth = request.authorization
+        for i in range(1, len(role)):
+            temp = as_obg.checkPriviledgeLevel(auth.username, role[i])
+            if temp:
+                pass
+                return "Correct role!", 200
+            else:
+                code = 403
+                msg = "Incorrect role!"
+        return msg, code
 
 def get_sessionValidation_error():
     error_message = {
