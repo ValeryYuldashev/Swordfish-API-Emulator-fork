@@ -402,7 +402,7 @@ def check_role(mode, role):
                 return "Correct role!", 200
             else:
                 code = 403
-                msg = "Incorrect role!"
+                msg = "Access denied!"
         return msg, code
 
 def get_sessionValidation_error():
