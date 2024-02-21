@@ -36,7 +36,7 @@ from flask import json
 _TEMPLATE = \
 {
 	"@Redfish.Copyright": "Copyright 2014-2021 SNIA. All rights reserved.",
-	"@odata.id": "{rb}/AccountService/Accounts/{ManagerAccountId}",
+	"@odata.id": "{rb}AccountService/Accounts/{ManagerAccountId}",
 	"@odata.type": "#ManagerAccount.v1_9_0.ManagerAccount",
 	"Id": "{ManagerAccountId}",
 	"Name": "User Account",

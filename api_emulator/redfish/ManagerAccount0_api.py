@@ -136,7 +136,7 @@ class ManagerAccount0API(Resource):
 				return resp
 			try:
 				global config
-				wildcards = {'ManagerAccountId':ManagerAccountId, 'rb':g.rest_base}
+				wildcards = {'ManagerAccountId': ManagerAccountId, 'rb': g.rest_base}
 				config = get_ManagerAccount0_instance(wildcards)
 				
 				if request.data:
