@@ -375,6 +375,7 @@ def check_session_authentication():
 
 def check_basic_authentication(auth):
     as_obj = AccountService()
+    as_obj.print_accounts_and_roles()
     actual_password = as_obj.getPassword(auth.username)
     if auth and auth.password == actual_password:
         return "Successfully authorized", 200
