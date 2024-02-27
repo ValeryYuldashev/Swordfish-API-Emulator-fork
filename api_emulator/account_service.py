@@ -6,15 +6,25 @@
 #   Temporary version, to be removed when AccountService goes dynamic
 
 class AccountService(object):
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(AccountService, cls).__new__(cls, *args, **kwargs)
+        return cls._instance
 
     def __init__(self):
-        self._accounts = { 'Dmitry': '1',
-                           'Valery': '2',
-                           'Ivan': '3' }
-        self._roles = { 'Dmitry': 'DevOps',
-                        'Valery': 'Administrator',
-                        'Ivan': 'StorageAdmin' }
-
+        if not hasattr(self, '_accounts'):
+            self._accounts = {
+                'Dmitry': '1',
+                'Valery': '2',
+                'Ivan': '3'
+            }
+            self._roles = {
+                'Dmitry': 'DevOps',
+                'Valery': 'Administrator',
+                'Ivan': 'StorageAdmin'
+            }
     def checkPriviledgeLevel(self, user, level):
         if self._roles[user] == level:
             return True
