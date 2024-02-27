@@ -16,12 +16,10 @@ class AccountService(object):
 
     def __init__(self):
         if not hasattr(self, '_accounts'):
-            self._accounts = {
-                'Administrator': 'Password',
-            }
-            self._roles = {
-                'Administrator': 'Administrator',
-            }
+            self._accounts = { 'Administrator': 'Password',
+                               'User': 'Password' }
+            self._roles = { 'Administrator': 'Administrator',
+                            'User': 'ReadOnlyUser' }
 
     def checkPriviledgeLevel(self, user, level):
         if self._roles[user] == level:
