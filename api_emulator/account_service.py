@@ -1,6 +1,7 @@
 # Copyright Notice:
 # Copyright 2016-2019 DMTF. All rights reserved.
-# License: BSD 3-Clause License. For full text see link: https://github.com/DMTF/Redfish-Interface-Emulator/blob/main/LICENSE.md
+# License: BSD 3-Clause License.
+# For full text see link: https://github.com/DMTF/Redfish-Interface-Emulator/blob/main/LICENSE.md
 
 # Redfish Emulator Role Service.
 #   Temporary version, to be removed when AccountService goes dynamic
@@ -21,6 +22,7 @@ class AccountService(object):
             self._roles = {
                 'Administrator': 'Administrator',
             }
+
     def checkPriviledgeLevel(self, user, level):
         if self._roles[user] == level:
             return True
@@ -39,6 +41,13 @@ class AccountService(object):
         else:
             self._accounts[username] = password
             self._roles[username] = role
+
+    def removeUser(self, username):
+        if username in self._accounts:
+            del self._accounts[username]
+            del self._roles[username]
+        else:
+            return None
 
     def checkPrivilege(self, privilege, username, errorResponse):
         def wrap(func):
