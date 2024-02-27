@@ -16,7 +16,7 @@ class AccountService(object):
     def __init__(self):
         if not hasattr(self, '_accounts'):
             self._accounts = {
-                'Administrator': 'xi92iA2i239dI_fi2i',
+                'Administrator': 'Password',
             }
             self._roles = {
                 'Administrator': 'Administrator',
