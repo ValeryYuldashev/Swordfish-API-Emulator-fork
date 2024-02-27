@@ -8,15 +8,12 @@
 class AccountService(object):
 
     def __init__(self):
-        self.loadAccounts()
-
-    def loadAccounts(self):
-        self._accounts = {'Dmitry': '1',
-                          'Valery': '2',
-                          'Ivan': '3'}
-        self._roles = {'Dmitry': 'DevOps',
-                       'Valery': 'Administrator',
-                       'Ivan': 'StorageAdmin'}
+        self._accounts = { 'Dmitry': '1',
+                           'Valery': '2',
+                           'Ivan': '3' }
+        self._roles = { 'Dmitry': 'DevOps',
+                        'Valery': 'Administrator',
+                        'Ivan': 'StorageAdmin' }
 
     def checkPriviledgeLevel(self, user, level):
         if self._roles[user] == level:
