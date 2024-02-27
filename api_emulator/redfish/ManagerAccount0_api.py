@@ -165,6 +165,7 @@ class ManagerAccount0API(Resource):
 					update_collections_json(path=collection_path, link=config['@odata.id'])
 					account_service = AccountService()
 					account_service.addUser(config['UserName'], config['Password'], config['RoleId'])
+					account_service.print_accounts_and_roles()
 					config = remove_json_object(config, 'Password')
 					resp = config, 200
 
