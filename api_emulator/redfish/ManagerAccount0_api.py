@@ -43,6 +43,7 @@ from flask_restful import Resource
 from .constants import *
 from api_emulator.utils import check_authentication, remove_json_object, update_collections_json, create_path, get_json_data, create_and_patch_object, delete_object, patch_object, put_object, delete_collection, create_collection
 from .templates.ManagerAccount0 import get_ManagerAccount0_instance
+from ..account_service import AccountService
 
 members = []
 member_ids = []
@@ -162,7 +163,8 @@ class ManagerAccount0API(Resource):
 					
 					# update the collection json file with new added resource
 					update_collections_json(path=collection_path, link=config['@odata.id'])
-
+					account_service = AccountService()
+					account_service.addUser(config['UserName'], config['Password'], config['RoleId'])
 					config = remove_json_object(config, 'Password')
 					resp = config, 200
 

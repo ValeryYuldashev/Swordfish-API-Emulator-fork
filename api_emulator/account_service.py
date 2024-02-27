@@ -27,6 +27,13 @@ class AccountService(object):
         else:
             return None
 
+    def addUser(self, username, password, role):
+        if username in self._accounts:
+            return False
+        else:
+            self._accounts[username] = password
+            self._roles[username] = role
+
     def checkPrivilege(self, privilege, username, errorResponse):
         def wrap(func):
             def inner(*args, **kwargs):
