@@ -53,6 +53,7 @@ from flask import jsonify, make_response, request, session
 from functools import wraps
 from api_emulator.redfish.templates.collection import get_Collection_instance
 
+
 def timestamp():
     """
     Return an ISO timestamp with milliseconds removed
@@ -79,13 +80,16 @@ def check_initialized(func):
 r   Wrapper function to check if the initialized member variable
     has been set to True in a class.
     """
+
     @wraps(func)
     def wrapper(*args, **kwargs):
         cls = args[0]
         if cls.initialized:
             raise RuntimeError('Object has already been initialized')
         return func(*args, **kwargs)
+
     return wrapper
+
 
 def replace_recurse(c, wildcards):
     """
@@ -112,11 +116,12 @@ def replace_recurse(c, wildcards):
         elif isinstance(v, list):
             for index, item in enumerate(v):
                 replace_recurse(item, wildcards)
-        elif isinstance (v, str):
+        elif isinstance(v, str):
             # print("key/value : ", k, "; ", v)
             # print("c[k] : ", c[k])
             c[k] = c[k].format(**wildcards)
             # print("c[k]2: ", c[k])
+
 
 def update_collections_json(path, link):
     '''
@@ -135,6 +140,7 @@ def update_collections_json(path, link):
     # Write the updated json to file.
     with open(path, 'w') as file_json:
         json.dump(data, file_json)
+
 
 def update_collections_parent_json(path, type, link):
     '''
@@ -156,11 +162,14 @@ def update_collections_parent_json(path, type, link):
     with open(path, 'w') as file_json:
         json.dump(data, file_json, indent=4)
 
+
 def create_path(*args):
     trimmed = [str(arg).strip('/') for arg in args]
     return os.path.join(*trimmed)
 
     # HTTP GET
+
+
 def get_json_data(path):
     try:
         json_data = open(path)
@@ -175,8 +184,9 @@ def get_json_data(path):
     return data
 
     # For POST Singleton API:
-def create_and_patch_object (config, members, member_ids, path, collection_path):
 
+
+def create_and_patch_object(config, members, member_ids, path, collection_path):
     # If input body data, then update properties
     if request.data:
         request_data = json.loads(request.data)
@@ -201,61 +211,62 @@ def create_and_patch_object (config, members, member_ids, path, collection_path)
     update_collections_json(path=collection_path, link=config['@odata.id'])
     return config
 
-def delete_object (path, base_path):
 
-    delPath = path.replace('Resources','/redfish/v1').replace("\\","/")
-    path2 = create_path(base_path, 'index.json').replace("\\","/")
+def delete_object(path, base_path):
+    delPath = path.replace('Resources', '/redfish/v1').replace("\\", "/")
+    path2 = create_path(base_path, 'index.json').replace("\\", "/")
     try:
-        with open(path2,"r") as pdata:
+        with open(path2, "r") as pdata:
             pdata = json.load(pdata)
 
         data = {
-        "@odata.id":delPath
+            "@odata.id": delPath
         }
         resp = 200
         jdata = data["@odata.id"].split('/')
 
-        path1 = os.path.join(base_path, jdata[len(jdata)-1])
+        path1 = os.path.join(base_path, jdata[len(jdata) - 1])
         shutil.rmtree(path1)
         pdata['Members'].remove(data)
         pdata['Members@odata.count'] = int(pdata['Members@odata.count']) - 1
 
-        with open(path2,"w") as jdata:
-            json.dump(pdata,jdata, indent=4, sort_keys=True)
+        with open(path2, "w") as jdata:
+            json.dump(pdata, jdata, indent=4, sort_keys=True)
 
     except Exception as e:
         return {"error": "Unable to read file because of the following error::{}".format(e)}, 404
 
     return jsonify(resp)
 
-def delete_collection (path, base_path):
 
-    delPath = path.replace('Resources','/redfish/v1').replace("\\","/")
-    path2 = create_path(base_path, 'index.json').replace("\\","/")
+def delete_collection(path, base_path):
+    delPath = path.replace('Resources', '/redfish/v1').replace("\\", "/")
+    path2 = create_path(base_path, 'index.json').replace("\\", "/")
     try:
-        with open(path2,"r") as pdata:
+        with open(path2, "r") as pdata:
             pdata = json.load(pdata)
 
         data = {
-        "@odata.id":delPath
+            "@odata.id": delPath
         }
         resp = 200
         jdata = data["@odata.id"].split('/')
 
-        path1 = os.path.join(base_path, jdata[len(jdata)-1])
+        path1 = os.path.join(base_path, jdata[len(jdata) - 1])
         shutil.rmtree(path1)
 
-        with open(path2,"w") as jdata:
-            json.dump(pdata,jdata)
+        with open(path2, "w") as jdata:
+            json.dump(pdata, jdata)
 
     except Exception as e:
         return {"error": "Unable to read file because of the following error::{}".format(e)}, 404
 
     return jsonify(resp)
 
+
 def patch_object(path):
     try:
-    # Read json from file.
+        # Read json from file.
         with open(path, 'r') as data_json:
             data = json.load(data_json)
             data_json.close()
@@ -267,7 +278,7 @@ def patch_object(path):
             if 'AssignedPrivileges' in request_data:
                 if request_data['AssignedPrivileges'] != data['AssignedPrivileges']:
                     return 400
-        
+
             # Update the keys of payload in json file.
             for key, value in request_data.items():
                 data[key] = value
@@ -282,16 +293,17 @@ def patch_object(path):
 
     return 200
 
+
 def put_object(path):
     if not os.path.exists(path):
         return {"error": "The requested object does not exist.:{}"}, 404
     try:
-    # Read json from file.
-    #    with open(path, 'r') as data_json:
-    #        data = json.load(data_json)
-    #        data_json.close()
+        # Read json from file.
+        #    with open(path, 'r') as data_json:
+        #        data = json.load(data_json)
+        #        data_json.close()
         data = {}
-        path = path.replace("\\","/")
+        path = path.replace("\\", "/")
         # If input body data, then update properties
         if request.data:
             request_data = json.loads(request.data)
@@ -309,8 +321,8 @@ def put_object(path):
 
     return True
 
-def create_collection (collection_path, collection_type, parent_path):
 
+def create_collection(collection_path, collection_type, parent_path):
     try:
         # if not os.path.exists(collection_path):
         #     os.mkdir(collection_path)
@@ -319,28 +331,31 @@ def create_collection (collection_path, collection_type, parent_path):
 
         global config
 
-        path = collection_path.replace('Resources','/redfish/v1').replace("\\","/")
+        path = collection_path.replace('Resources', '/redfish/v1').replace("\\", "/")
         wildcards = {'path': path, 'cType': collection_type}
-        config=get_Collection_instance(wildcards)
+        config = get_Collection_instance(wildcards)
         collection_type = collection_type
 
         with open(os.path.join(collection_path, "index.json"), "w") as fd:
             fd.write(json.dumps(config, indent=4, sort_keys=True))
 
-        update_collections_parent_json(path=os.path.join(parent_path, "index.json"), type=collection_type, link=config['@odata.id'])
+        update_collections_parent_json(path=os.path.join(parent_path, "index.json"), type=collection_type,
+                                       link=config['@odata.id'])
         resp = config, 200
     except Exception as e:
         traceback.print_exc()
         resp = 500
     return resp
 
-def remove_json_object (config, property_id):
+
+def remove_json_object(config, property_id):
     # Iterate through the objects in the JSON and pop (remove)
     # the obj once we find it.
 
     if property_id in config:
-        config.pop (property_id, None)
+        config.pop(property_id, None)
     return config
+
 
 def check_session_authentication():
     if 'X-Auth-Token' in request.headers:
@@ -356,7 +371,8 @@ def check_session_authentication():
             return "Missing token", 403
     else:
         return "Missing Header", 403
-    
+
+
 def check_basic_authentication(auth):
     as_obj = AccountService()
     actual_password = as_obj.getPassword(auth.username)
@@ -364,6 +380,7 @@ def check_basic_authentication(auth):
         return "Successfully authorized", 200
     else:
         return "Could not verify your login", 403
+
 
 def check_authentication(mode):
     if mode == 'Disable':
@@ -385,9 +402,27 @@ def check_authentication(mode):
             else:
                 print(msg)
                 return msg, code
-        if not auth and session.get('UserName') == None:
+        if not auth and session.get('UserName') is None:
             return get_sessionValidation_error(), 403
     return "Success..", 200
+
+
+def check_role(mode, role):
+    if mode == 'Disable':
+        pass
+    elif mode == 'Enable':
+        as_obg = AccountService()
+        auth = request.authorization
+        for i in range(1, len(role)):
+            temp = as_obg.checkPriviledgeLevel(auth.username, role[i])
+            if temp:
+                pass
+                return "Correct role!", 200
+            else:
+                code = 403
+                msg = "Access denied!"
+        return msg, code
+
 
 def get_sessionValidation_error():
     error_message = {
@@ -408,7 +443,8 @@ def get_sessionValidation_error():
     }
     return error_message
 
-def header_handler(data,code,resp):
+
+def header_handler(data, code, resp):
     resp.headers['OData-Version'] = 4.0
     resp.headers['Cache-Control'] = 'No-store'
     try:
@@ -416,9 +452,9 @@ def header_handler(data,code,resp):
             resp.headers['Etag'] = 'W/"xyzzy"'
     except:
         pass
-    
+
     if '@odata.id' in data:
-        resp.headers['Link'] = data['@odata.id']+'; rel=describedby'
+        resp.headers['Link'] = data['@odata.id'] + '; rel=describedby'
 
     if code == 405:
         resp.headers['Allow'] = 'GET, HEAD'
