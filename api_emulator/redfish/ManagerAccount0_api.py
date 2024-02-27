@@ -160,20 +160,16 @@ class ManagerAccount0API(Resource):
 					with open(os.path.join(path, "index.json"), "w") as fd:
 						data = copy.deepcopy(config)
 						fd.write(json.dumps(data, indent=4, sort_keys=True))
-					
-					# update the collection json file with new added resource
-					update_collections_json(path=collection_path, link=config['@odata.id'])
+					# update account_service accounts
 					account_service = AccountService()
 					account_service.addUser(config['UserName'], config['Password'], config['RoleId'])
-					account_service.print_accounts_and_roles()
+					# update the collection json file with new added resource
+					update_collections_json(path=collection_path, link=config['@odata.id'])
 					config = remove_json_object(config, 'Password')
 					resp = config, 200
-
 			except Exception:
 				traceback.print_exc()
 				resp = INTERNAL_ERROR
-			account_service = AccountService()
-			account_service.print_accounts_and_roles()
 			logging.info('ManagerAccount0API POST exit')
 			return resp
 		else:

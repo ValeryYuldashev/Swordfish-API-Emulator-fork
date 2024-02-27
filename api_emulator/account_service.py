@@ -16,14 +16,10 @@ class AccountService(object):
     def __init__(self):
         if not hasattr(self, '_accounts'):
             self._accounts = {
-                'Dmitry': '1',
-                'Valery': '2',
-                'Ivan': '3'
+                'Administrator': 'xi92iA2i239dI_fi2i',
             }
             self._roles = {
-                'Dmitry': 'DevOps',
-                'Valery': 'Administrator',
-                'Ivan': 'StorageAdmin'
+                'Administrator': 'Administrator',
             }
     def checkPriviledgeLevel(self, user, level):
         if self._roles[user] == level:
@@ -39,16 +35,10 @@ class AccountService(object):
 
     def addUser(self, username, password, role):
         if username in self._accounts:
-            return False
+            return None
         else:
             self._accounts[username] = password
             self._roles[username] = role
-
-    def print_accounts_and_roles(self):
-        print("Accounts and Roles:")
-        for username, password in self._accounts.items():
-            role = self._roles.get(username, "Role not found")
-            print(f"Username: {username}, Password: {password}, Role: {role}")
 
     def checkPrivilege(self, privilege, username, errorResponse):
         def wrap(func):
