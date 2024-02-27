@@ -35,9 +35,6 @@ class AccountService(object):
             self._roles[username] = role
 
     def print_accounts_and_roles(self):
-        """
-        Prints the accounts and their roles.
-        """
         print("Accounts and Roles:")
         for username, password in self._accounts.items():
             role = self._roles.get(username, "Role not found")

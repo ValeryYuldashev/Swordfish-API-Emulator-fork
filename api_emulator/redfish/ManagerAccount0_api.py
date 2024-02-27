@@ -163,15 +163,15 @@ class ManagerAccount0API(Resource):
 					
 					# update the collection json file with new added resource
 					update_collections_json(path=collection_path, link=config['@odata.id'])
-					account_service = AccountService()
-					account_service.addUser(config['UserName'], config['Password'], config['RoleId'])
-					account_service.print_accounts_and_roles()
 					config = remove_json_object(config, 'Password')
 					resp = config, 200
 
 			except Exception:
 				traceback.print_exc()
 				resp = INTERNAL_ERROR
+			account_service = AccountService()
+			account_service.addUser(config['UserName'], config['Password'], config['RoleId'])
+			account_service.print_accounts_and_roles()
 			logging.info('ManagerAccount0API POST exit')
 			return resp
 		else:
