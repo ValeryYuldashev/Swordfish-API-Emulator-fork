@@ -37,6 +37,8 @@
 
 # External imports
 
+from api_emulator.redfish.ActionReset_api import *
+
 from api_emulator.redfish.AccelerationFunction0_api import *
 from api_emulator.redfish.AccelerationFunction1_api import *
 from api_emulator.redfish.AccelerationFunction2_api import *
@@ -782,6 +784,8 @@ class ResourceManager(object):
 #        if "Swordfish" in mockupfolders:
 #            self.StorageServices = load_static('StorageServices', 'redfish', mode, rest_base, self.resource_dictionary)
 #            self.StorageSystems = load_static('StorageSystems', 'redfish', mode, rest_base, self.resource_dictionary)
+        # New APIs
+        g.api.add_resource(ActionReset, '/redfish/v1/Managers/<string:ManagerId>/Actions/Manager.Reset', resource_class_kwargs={'auth': auth})
 
         # Attach APIs for dynamic resources
         g.api.add_resource(AccelerationFunction0CollectionAPI, '/redfish/v1/Systems/<string:ComputerSystemId>/Processors/<string:ProcessorId>/AccelerationFunctions', resource_class_kwargs={'auth': auth})

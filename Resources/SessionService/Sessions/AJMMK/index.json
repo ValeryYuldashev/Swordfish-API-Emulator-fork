@@ -1,0 +1,8 @@
+{
+    "@Redfish.Copyright": "Copyright 2AJMMK14-2AJMMK21 SNIA. All rights reserved.",
+    "@odata.id": "/redfish/v1/SessionService/Sessions/AJMMK",
+    "@odata.type": "#Session.v1_4_AJMMK.Session",
+    "Id": "AJMMK",
+    "Name": "Administrator Session",
+    "UserName": "Administrator"
+}

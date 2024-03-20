@@ -6,5 +6,5 @@
   "SPEC": "Redfish",
   "MOCKUPFOLDERS": ["Mockups"],
   "AUTHENTICATION": "Enable",
-  "CERTIFICATE": ["server.crt", "server.key"]
+  "CERTIFICATE": ["src/certificates/server.crt", "src/certificates/server.key"]
 }

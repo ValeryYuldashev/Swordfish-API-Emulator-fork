@@ -74,7 +74,7 @@ MOCKUPFOLDERS = None
 STATIC = None
 
 location = None
-CONFIG = 'emulator-config.json'
+CONFIG = 'src/configs/emulator-config.json'
 
 # Base URL of the RESTful interface
 REST_BASE = '/redfish/v1/'
@@ -236,6 +236,7 @@ def before_request():
 #    - Issuing a GET
 #    - Issuing a DELETE /redfish/v1/xxx/{id} to remove a pooled node (need to add checks)
 #
+
 class RedfishAPI(Resource):
     def __init__(self):
         # Dictionary of actions and their method
